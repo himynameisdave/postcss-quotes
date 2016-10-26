@@ -1,0 +1,35 @@
+{
+  "name": "postcss-quotes",
+  "version": "0.1.0",
+  "description": "PostCSS plugin Handle single-vs-double quotation marks in your stylesheets",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "analysis",
+    "other"
+  ],
+  "author": "himynameisdave",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/himynameisdave/postcss-quotes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/himynameisdave/postcss-quotes/issues"
+  },
+  "homepage": "https://github.com/himynameisdave/postcss-quotes",
+  "dependencies": {
+    "postcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.0.0",
+    "chai": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^0.14.0",
+    "gulp-mocha": "^2.1.2"
+  },
+  "scripts": {
+    "test": "gulp"
+  }
+}
