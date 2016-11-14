@@ -1,9 +1,9 @@
-var postcss = require('postcss');
-var expect  = require('chai').expect;
+const postcss = require('postcss');
+const expect = require('chai').expect; // eslint-disable no-extraneous-dependencies
 
-var plugin = require('../');
+const plugin = require('../');
 
-var test = function (input, output, opts, done) {
+const test = function (input, output, opts, done) {
     postcss([ plugin(opts) ]).process(input).then(function (result) {
         expect(result.css).to.eql(output);
         expect(result.warnings()).to.be.empty;
