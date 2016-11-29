@@ -1,24 +1,28 @@
+const fs = require('fs');
 const postcss = require('postcss');
-const expect = require('chai').expect; // eslint-disable no-extraneous-dependencies
-
 const plugin = require('../');
+const fixturesBase = './test/fixtures/fixtures.';
 
-const test = function (input, output, opts, done) {
-    postcss([ plugin(opts) ]).process(input).then(function (result) {
-        expect(result.css).to.eql(output);
-        expect(result.warnings()).to.be.empty;
-        done();
-    }).catch(function (error) {
-        done(error);
-    });
-};
+const test = (inputFile, opts) => new Promise((res, rej) => {
+  fs.readFile(`${fixturesBase}${inputFile}`, 'utf-8', (e, data) => {
+    if (e) return rej(e);
 
-describe('postcss-quotes', function () {
-
-    /* Write tests here
-
-    it('does something', function (done) {
-        test('a{ }', 'a{ }', { }, done);
-    });*/
-
+    return postcss([plugin(opts)])
+      .process(data)
+      .then(outputCss => res(outputCss))
+      .catch(err => rej(err));
+  });
 });
+
+module.exports = test;
+
+
+// describe('postcss-quotes', function () {
+//
+//     /* Write tests here
+//
+//     it('does something', function (done) {
+//         test('a{ }', 'a{ }', { }, done);
+//     });*/
+//
+// });

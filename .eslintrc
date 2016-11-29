@@ -3,6 +3,8 @@
   "rules": {
     "arrow-parens": 0,
     "comma-dangle": 0,
-    "no-useless-return": 0
+    "no-useless-return": 0,
+    "no-underscore-dangle": 0,
+    "no-extraneous-dependencies": 0
   }
 }

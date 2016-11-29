@@ -1,0 +1,6 @@
+
+
+/* A more complex attr selector */
+.test8_[type="complex" i] {
+  color: tomato;
+}

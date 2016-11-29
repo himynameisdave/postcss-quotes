@@ -1,0 +1,6 @@
+
+
+/* Attribute selector with double quotes */
+.test6_[attr="doubles"] {
+  color: lime;
+}
