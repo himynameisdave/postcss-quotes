@@ -1,20 +1,19 @@
-const { deepEqual } = require('chai').assert;
+import test from 'ava';
 const _incrementQuoteCount = require('../../utils/incrementQuoteCount.js');
 //  Generates the test object for you
-const t = (single, double) => ({ single, double });
+const obj = (single, double) => ({ single, double });
 
 
 /* eslint-disable no-undef */
-describe('utils/incrementQuoteCount', () => {
-  it('increments \'single\' by 1', () => {
-    const actual = _incrementQuoteCount('single', t(0, 0));
-    const expected = t(1, 0);
-    deepEqual(actual, expected);
-  });
-  it('increments \'double\' by 1', () => {
-    const actual = _incrementQuoteCount('double', t(2, 2));
-    const expected = t(2, 3);
-    deepEqual(actual, expected);
-  });
+test('increments \'single\' by 1', t => {
+  const actual = _incrementQuoteCount('single', obj(0, 0));
+  const expected = obj(1, 0);
+  t.deepEqual(actual, expected);
+});
+
+test('increments \'double\' by 1', t => {
+  const actual = _incrementQuoteCount('double', obj(2, 2));
+  const expected = obj(2, 3);
+  t.deepEqual(actual, expected);
 });
 /* eslint-enable */

@@ -3,3 +3,9 @@
 .test4_mixed {
   background-image: url("I'm a URL");
 }
+/* * EXPECTED * */
+
+/* Set of double quotes with an inner single quote */
+.test4_mixed {
+  background-image: url('I\'m a URL');
+}

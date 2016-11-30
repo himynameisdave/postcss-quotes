@@ -46,6 +46,7 @@ module.exports = postcss.plugin('postcss-quotes', (opts) => {
         decl.value = cleanDecl;
       });
     });
+
     //  Handle charset quotes
     /*
     var metCharset = false;
