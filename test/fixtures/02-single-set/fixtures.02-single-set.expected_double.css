@@ -1,0 +1,8 @@
+/* "This comment should be ignored" */
+
+/* Simple set of single quotes */
+.test2_single {
+  background-image: url("www.thebomb.com");
+}
+
+/* 'this comment should also be ignored' ' ' ' '' "" */

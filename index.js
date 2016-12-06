@@ -19,9 +19,16 @@ const checkQuotes = (str) => str.split('').reduce((acc, character) => {
 //  TODO: fill this in
 // const handleManyQuote = (str) => str;
 
+const parseOptions = (opts) => {
+  if (opts && opts.quotes && (opts.quotes === 'single' || opts.quotes === 'double')) {
+    return opts.quotes;
+  }
+  return 'single';
+};
+
 module.exports = postcss.plugin('postcss-quotes', (opts) => {
   //  Default to single-style quotes
-  const quoteType = opts && opts.quotes ? opts.quotes : 'single';
+  const quoteType = parseOptions(opts);
 
   return (css) => {
     css.walkRules(rule => {

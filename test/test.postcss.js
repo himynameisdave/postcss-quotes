@@ -1,4 +1,4 @@
-import test from 'ava';
+import test from 'ava';// eslint-disable-line
 const fs = require('fs');
 const postcss = require('postcss');
 const plugin = require('../');
@@ -6,29 +6,32 @@ const plugin = require('../');
 
 const tests = [
   {
-    message: '02 => single-set becomes a double-set',
-    opts: { quotes: 'double' },
-    fixturePath: '02-single-set.css'
+    message: '02-single-set',
+    fixturePath: '02-single-set/fixtures.02-single-set'
   }, {
-    message: '03 => double-set becomes a single-set',
-    opts: { quotes: 'single' },
-    fixturePath: '03-double-set.css'
+    message: '03-double-set',
+    fixturePath: '03-double-set/fixtures.03-double-set'
   }, {
-    message: '05 => escaped',
-    opts: { quotes: 'double' },
-    fixturePath: '05-escaped.css'
+    message: '04-mixed',
+    fixturePath: '04-mixed/fixtures.04-mixed'
   }
-
-  // {
-  //   message: '04 => mixed',
-  //   opts: { quotes: 'double' },
-  //   fixturePath: '04-mixed.css'
-  // }
 ];
 
-tests.map(v => test(v.message, t => {
-  const fixture = fs.readFileSync(`./test/fixtures/fixtures.${v.fixturePath}`, 'utf-8').split('/* * EXPECTED * */\n');
-  postcss(plugin(v.opts)).process(fixture[0]).then(({ css }) => {
-    t.is(css, fixture[1]);
+tests.map(v => { // eslint-disable-line array-callback-return
+  const actual = fs.readFileSync(`./test/fixtures/${v.fixturePath}.actual.css`, 'utf-8');
+  //  Do singles test
+  test(`${v.message} => 'single'`, t => {
+    return postcss(plugin({ quotes: 'single' })).process(actual).then(({ css }) => {
+      const expected = fs.readFileSync(`./test/fixtures/${v.fixturePath}.expected_single.css`, 'utf-8');
+      // console.log('HERES THE CSS: \n\n\n\n\n', css === expected)
+      t.is(css, expected);
+    });
   });
-}));
+  //  Do doubles test
+  test(`${v.message} => 'double'`, t => {
+    return postcss(plugin({ quotes: 'double' })).process(actual).then(({ css }) => {
+      const expected = fs.readFileSync(`./test/fixtures/${v.fixturePath}.expected_double.css`, 'utf-8');
+      t.is(css, expected);
+    });
+  });
+});
