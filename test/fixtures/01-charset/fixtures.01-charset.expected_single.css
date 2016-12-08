@@ -1,0 +1,9 @@
+/* check for CHARSET */
+@charset 'UTF-8';
+
+/* Dummy selector becuase Charset gets lonely by iteself */
+.charsets-are-sexy {
+  color: red;
+}
+
+/* "This comment should be ignored" */

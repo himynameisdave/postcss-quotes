@@ -1,0 +1,11 @@
+/* All single quotes, inner ones escaped */
+.test5_escaped {
+  background-image: url('I\'m a real long ol\' URL');
+}
+/* * EXPECTED * */
+
+
+/* All single quotes, inner ones escaped */
+.test5_escaped {
+  background-image: url("I\'m a real long ol\' URL");
+}
