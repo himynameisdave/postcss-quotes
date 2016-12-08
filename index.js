@@ -16,9 +16,10 @@ const checkQuotes = (str) => str.split('').reduce((acc, character) => {
   double: 0
 });
 
-//  TODO: fill this in
-// const handleManyQuote = (str) => str;
 
+///TODO: remove the above
+
+//  TODO: pull out and test
 const parseOptions = (opts) => {
   if (opts && opts.quotes && (opts.quotes === 'single' || opts.quotes === 'double')) {
     return opts.quotes;
@@ -26,15 +27,34 @@ const parseOptions = (opts) => {
   return 'single';
 };
 
+
+const hasSingleQuotes = (str) => str.includes('\'');
+const hasDoubleQuotes = (str) => str.includes('"');
+const replaceAll = (str, before, after) => str.split(before).join(after);
+
+const handleCharset = (quoteType) => (atRule) => {
+  const ruleString = atRule.toString();
+  if (quoteType === 'single' && hasDoubleQuotes(ruleString)) {
+    atRule.replaceWith(replaceAll(ruleString, '"', '\''));
+  }
+  if (quoteType === 'double' && hasSingleQuotes(ruleString)) {
+    atRule.replaceWith(replaceAll(ruleString, '\'', '"'));
+  }
+};
+
 module.exports = postcss.plugin('postcss-quotes', (opts) => {
   //  Default to single-style quotes
   const quoteType = parseOptions(opts);
 
   return (css) => {
+    //  Handle @charset
+    css.walkAtRules('charset', handleCharset(quoteType));
+
     css.walkRules(rule => {
       rule.walkDecls((decl) => {
         //  Our cleaned declaration value, kept separate in case we need to compare with OG
         let cleanDecl = decl.value;
+
         const quoteValues = checkQuotes(cleanDecl);
         if (hasPairOfQuotes(quoteValues)) {
           if (quoteType === 'single' && quoteValues.double === 2) {
@@ -53,18 +73,6 @@ module.exports = postcss.plugin('postcss-quotes', (opts) => {
         decl.value = cleanDecl;
       });
     });
-
-    //  Handle charset quotes
-    /*
-    var metCharset = false;
-    css.walkAtRules("charset", function (atRule) {
-      if (!metCharset) {
-        metCharset = true;
-        atRule.parent.prepend(atRule.clone());
-      }
-
-      atRule.remove();
-    });
-    */
+    return css;
   };
 });
