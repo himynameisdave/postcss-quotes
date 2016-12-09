@@ -2,36 +2,28 @@ const postcss = require('postcss');
 // const escapeQuotes = require('escape-quotes');
 const incrementQuoteCount = require('./utils/incrementQuoteCount.js');
 const hasPairOfQuotes = require('./utils/hasPairOfQuotes.js');
+const parseOptions = require('./utils/parseOptions.js');
+
 
 const checkQuotes = (str) => str.split('').reduce((acc, character) => {
   if (character === '\'') {
-    acc = incrementQuoteCount('single', acc);
+    return incrementQuoteCount('single', acc);
   }
   if (character === '"') {
-    acc = incrementQuoteCount('double', acc);
+    return incrementQuoteCount('double', acc);
   }
-  return acc;
 }, { // Initial values for the reducer
   single: 0,
   double: 0
 });
 
 
-///TODO: remove the above
-
-//  TODO: pull out and test
-const parseOptions = (opts) => {
-  if (opts && opts.quotes && (opts.quotes === 'single' || opts.quotes === 'double')) {
-    return opts.quotes;
-  }
-  return 'single';
-};
-
-
 const hasSingleQuotes = (str) => str.includes('\'');
 const hasDoubleQuotes = (str) => str.includes('"');
 const replaceAll = (str, before, after) => str.split(before).join(after);
 
+
+//  eventually break this off
 const handleCharset = (quoteType) => (atRule) => {
   const ruleString = atRule.toString();
   if (quoteType === 'single' && hasDoubleQuotes(ruleString)) {
