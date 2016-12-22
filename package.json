@@ -30,7 +30,7 @@
     "ava": "^0.17.0",
     "babel-eslint": "^7.0.0",
     "eslint": "^3.10.0",
-    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0"
   },
   "scripts": {
